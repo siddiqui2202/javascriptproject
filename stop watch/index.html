@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop watch by abdullah Siddqiui</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="watch">
+            <div class="outer-circle">
+                <div class="inner-circle">
+                    <span class="text minute"></span>
+                    <span class="text sec">0 :</span>
+                    <span class="text msec">&nbsp;0</span>
+                </div>
+            </div>
+            <div class="button-wrapper">
+                <button class="button reset hidden">Reset</button>
+                <button class="button play">play</button>
+                <button class="button lap hidden">lap</button>
+            </div>
+        </div>
+        <ul class="laps">
+            <li class="lap-item">
+                <span class="number">#1</span>
+                <span class="timestamp">01 : 43 : 07</span>
+            </li>
+            <li class="lap-item">
+                <span class="number">#1</span>
+                <span class="timestamp">01 : 43 : 07</span>
+            </li>
+            <li class="lap-item">
+                <span class="number">#1</span>
+                <span class="timestamp">01 : 43 : 07</span>
+            </li>
+            <li class="lap-item">
+                <span class="number">#1</span>
+                <span class="timestamp">01 : 43 : 07</span>
+            </li>
+            <li class="lap-item">
+                <span class="number">#1</span>
+                <span class="timestamp">01 : 43 : 07</span>
+            </li>
+            <button class="lap-clear-button">clearall</button>
+        </ul>
+    </div>
+
+    <script>
+        const playButton = document.getElementsByClassName("play")[0];
+        const lapButton = document.getElementsByClassName("lap")[0];
+        const resetButton = document.getElementsByClassName("reset")[0];
+        const second = document.getElementsByClassName("sec")[0];
+        const centisecond = document.getElementsByClassName("msec")[0];
+
+
+        let isplay = false;
+        let secCounter = 0;
+        let sec;
+        let centiCounter = 0;
+        let centiSec;
+
+        const toggleButton = () => {
+            lapButton.classList.remove("hidden")
+            resetButton.classList.remove("hidden")
+        }
+
+        const play = () => {
+            if (!isplay) {
+                playButton.innerHTML = "Pause";
+                sec = setInterval(() => {
+                    second.innerHTML = `${secCounter++} : ` ;
+                }, 1000)
+                centiSec = setInterval(() => {
+                    centisecond.innerHTML = `${centiCounter++} : ` ;
+                }, 10)
+                isplay = true;
+            } else {
+                playButton.innerHTML = "Play";
+                clearInterval(sec)
+                clearInterval(centiSec)
+                isplay = false;
+            }
+            toggleButton();
+        }
+
+
+
+        const reset = () => {
+            play();
+            lapButton.classList.add("hidden")
+            resetButton.classList.add("hidden")
+            second.innerHTML = "0 :" 
+        }
+        playButton.addEventListener("click", play);
+        resetButton.addEventListener("click", reset);
+    </script>
+</body>
+
+</html>
